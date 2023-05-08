@@ -24,10 +24,12 @@ public class CustomEventListenerProvider
         implements EventListenerProvider {
 
 
+    //TODO: Fix this
+    // AdminEvent is working correctly
     @Override
     public void onEvent(Event event) {
         if(EventType.REGISTER.equals(event.getType())) {
-            System.out.println("User Registered: " + event.getUserId());
+            System.out.println("User Registered with self registration : " + event.getUserId());
 
             String json;
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -46,10 +48,11 @@ public class CustomEventListenerProvider
         }
     }
 
+
     @Override
     public void onEvent(AdminEvent event, boolean includeRepresentation) {
         if(OperationType.CREATE.equals(event.getOperationType()) && ResourceType.USER.equals(event.getResourceType())) {
-            System.out.println("User Created: " + event.getResourcePath());
+            System.out.println("User Created through admin: " + event.getResourcePath());
 
             String json;
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
