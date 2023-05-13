@@ -9,9 +9,7 @@ import org.keycloak.events.EventType;
 import org.keycloak.events.admin.AdminEvent;
 import org.keycloak.events.admin.OperationType;
 import org.keycloak.events.admin.ResourceType;
-import org.keycloak.models.KeycloakSession;
 
-import javax.inject.Inject;
 import java.io.IOException;
 
 import static com.cevher.keycloak.Client.postServiceAdminEvent;
@@ -22,8 +20,7 @@ public class CustomEventListenerProvider
 
 
 
-    //TODO: Fix this
-    // AdminEvent is working correctly
+
     @Override
     public void onEvent(Event event) {
         if (EventType.REGISTER.equals(event.getType())) {
