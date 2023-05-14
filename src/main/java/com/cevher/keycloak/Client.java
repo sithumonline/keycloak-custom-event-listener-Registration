@@ -9,11 +9,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class Client {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CustomEventListenerProvider.class);
+    
     public static void postServiceAdminEvent(String data) throws IOException {
 
         // Do Http POST request to Service
@@ -22,7 +26,7 @@ public class Client {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String uriAdmin = "http://host.docker.internal:8080/startRegistrationProcess/Admin";
 
-        System.out.println("POST Event Data to: " + uriAdmin);
+        LOG.info("POST Event Data to: " + uriAdmin);
 
         try {
             HttpPost httpPost = new HttpPost(uriAdmin);
@@ -38,8 +42,8 @@ public class Client {
                 if (responseEntity != null) {
                     String responseString = EntityUtils.toString(responseEntity, "UTF-8");
                     EntityUtils.consume(responseEntity);
-                    System.out.println("Response status: " + response.getStatusLine().getStatusCode());
-                    System.out.println("Response body: " + responseString);
+                    LOG.info("Response status: " + response.getStatusLine().getStatusCode());
+                    LOG.info("Response body: " + responseString);
 
                 }
             } finally {
@@ -58,7 +62,7 @@ public class Client {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String uriUser = "http://host.docker.internal:8080/startRegistrationProcess/User";
 
-        System.out.println("POST Event Data to: " + uriUser);
+        LOG.info("POST Event Data to: " + uriUser);
 
         try {
             HttpPost httpPost = new HttpPost(uriUser);
@@ -74,8 +78,8 @@ public class Client {
                 if (responseEntity != null) {
                     String responseString = EntityUtils.toString(responseEntity, "UTF-8");
                     EntityUtils.consume(responseEntity);
-                    System.out.println("Response status: " + response.getStatusLine().getStatusCode());
-                    System.out.println("Response body: " + responseString);
+                    LOG.info("Response status: " + response.getStatusLine().getStatusCode());
+                    LOG.info("Response body: " + responseString);
 
                 }
             } finally {
