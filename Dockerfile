@@ -16,7 +16,7 @@ FROM quay.io/keycloak/keycloak:26.0
 
 # Copy the JAR file from the build stage
 COPY --from=build /app/target/custom-event-listener.jar /opt/keycloak/providers
-# COPY custom-event-listener.jar /opt/keycloak/providers
+# COPY target/custom-event-listener.jar /opt/keycloak/providers
 
 # Copy the test data
 COPY testdata/gocloak-realm.json /opt/keycloak/data/import/gocloak-realm.json
