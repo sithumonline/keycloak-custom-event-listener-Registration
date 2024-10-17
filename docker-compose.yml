@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_SCHEMA: public
+      DB_USER: keycloak
+      DB_PASSWORD: postgres
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: secret
+      KC_HEALTH_ENABLED: "true"
+      KC_HOSTNAME: localhost
+      KC_HTTP_PORT: 8080
+      AUTH_ENDPOINT: http://localhost:3001/api/v1/user
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    healthcheck:
+      test: curl --fail --silent http://localhost:8080/health/ready 2>&1 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    # network_mode: "host"
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
