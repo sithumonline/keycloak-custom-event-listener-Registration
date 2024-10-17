@@ -5,7 +5,7 @@ FROM maven:3.8.4-openjdk-11 AS build
 WORKDIR /app
 
 # # Copy the pom.xml and source code to the container
-# COPY pom.xml .
+COPY pom.xml .
 COPY src ./src
 
 # # Build the JAR file
