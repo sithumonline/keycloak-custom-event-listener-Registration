@@ -29,7 +29,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    # network_mode: "host"
 
   postgres:
     image: postgres:14
